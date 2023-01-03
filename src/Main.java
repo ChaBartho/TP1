@@ -92,14 +92,14 @@ public class Main {
         String club = scan.nextLine();
 
 
-        //Afficher grille vide en dur:
+        //Afficher grille vide en dur:                  -> %s remplace un seul caractère, utiliser un tab pour une chaine ?
         String grilleVide = """
                 +-----------------------------------------+
                 |                  Date                   |
                 +-----------------------------------------+
                 |  début  |   fin   |      Sessions       |
                 +-----------------------------------------+
-                |    h    |    h    |  . . . . . . . . . .|
+                | %s h %s | %s h %s |  . . . . . . . . . .|
                 |    h    |    h    |  . . . . . . . . . .|67 Repas
                 |    h    |    h    |  . . . . . . . . . .|78 Repas
                 |    h    |    h    |  . . . . . . . . . .|89
@@ -135,6 +135,9 @@ public class Main {
         //Fermez le flux d'écriture en utilisant la méthode close de l'ObjectOutputStream:
         oos.close();
 
+
+
+        // utiliser ObjectInputStream pour lire les objets sérialisés
 
 
         //(https://gayerie.dev/docs/java/langage_java/streams.html)

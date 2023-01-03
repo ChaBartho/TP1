@@ -4,7 +4,7 @@ public class Inscription implements Serializable{
     int id;
     String nomPersonne;
     String nomClub;
-    int tarif;
+//    int tarif;
 
 
     //Constructeur:

@@ -29,7 +29,7 @@ public class Session {
             System.out.println(recupInscrit.id);
             System.out.println(recupInscrit.nomPersonne);
             System.out.println(recupInscrit.nomClub);
-            System.out.println(recupInscrit.tarif);
+//            System.out.println(recupInscrit.tarif);
         }else{
             System.out.println("Cette personne n'existe pas");
         }
