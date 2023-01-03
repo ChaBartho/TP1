@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Jour {
+
     //Propriétés:
     LocalDate jour;
     LocalTime heureDebut;
@@ -13,20 +14,20 @@ public class Jour {
 
     //Constructeur:
     public Jour(String inputJour){
-        jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        maSession = new HashMap<String, Session>();
+        this.jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.maSession = new HashMap<String, Session>();
     }
 
 
     //Methodes:     -> un jour contient des sessions
     public void addSession(String sessionSaisie, Session nvlSession){
         maSession.put(sessionSaisie, nvlSession);
-
     }
 
     public void getSession(String maSess){
-        if (maSession.containsKey(maSess)) {
+        if (maSession.containsKey(maSess)) {    //containsKey = Vérifier qu'un élément existe (true/false)
             Session recupSession = maSession.get(maSess);
+            System.out.println(recupSession.intitule);
             System.out.println(recupSession.heureDebutSession);
             System.out.println(recupSession.heureFinSession);
             System.out.println(recupSession.duree);

@@ -13,9 +13,11 @@ public class Agenda {
     public void addJour(String jourSaisi, Jour nouveauJour) {   //jourSaisi prend seulement la date, nouveauJour prend l'heure de debut et de fin
         calendrier.put(jourSaisi, nouveauJour);
     }
+
     public void addSession(String jourSaisi, String sessionSaisie, Session nvlSession){ //Permet d'ajouter une session à l'agenda en cours, et ça appellera la méthode de Jour
         calendrier.get(jourSaisi).addSession( sessionSaisie,  nvlSession);
     }
+
     public void getJour(String maDate){
         if (calendrier.containsKey(maDate)) {   //containsKey = Vérifier qu'un élément existe (true/false)
             Jour recupDate = calendrier.get(maDate);
