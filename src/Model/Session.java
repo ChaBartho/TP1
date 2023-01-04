@@ -1,3 +1,5 @@
+package Model;
+
 import java.time.LocalTime;
 import java.util.HashMap;
 
@@ -43,6 +45,8 @@ public class Session {
             System.out.println("Cette inscription n'existe pas et n'as pas pu être supprimée");
         }
     }
+
+
 
 
 

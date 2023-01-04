@@ -1,4 +1,8 @@
-public class Inscription implements Serializable{
+package Model;
+
+import java.io.Serializable;
+
+public class Inscription implements Serializable {
 
     //Propriétés:
     int id;
@@ -20,6 +24,7 @@ public class Inscription implements Serializable{
         return id;
     }
 
+    //faire methode deleteInscription
     public void setName(String nomPers){
         this.nomPersonne = nomPers;
     }

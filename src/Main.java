@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -30,11 +29,23 @@ public class Main {
         String menu = """
                 1. Ajouter date (avec heure de début et de fin de journée).
                 2. Afficher date choisie.
-                3. Ajouter session (avec heure de début et de fin de session).
-                4. Afficher session choisie.
-                5. Ajouter personne.
-                6. Quitter.
+                3. Ajouter personne.
+                4. Quitter.
                 """;
+
+        String sousMenuSession = """
+                1. Ajouter session (avec heure de début et de fin de session).
+                2. Afficher session choisie.
+                3. Retour.
+                """;
+
+        String sousMenuPersonne = """
+                1. Inscrire personne.
+                2. Supprimer inscription.
+                3. Modifier inscription.
+                4. Retour.
+                """;
+
 
         switch (menu) {
             case "1." :
@@ -100,25 +111,10 @@ public class Main {
                 |  début  |   fin   |      Sessions       |
                 +-----------------------------------------+
                 | %s h %s | %s h %s |  . . . . . . . . . .|
-                |    h    |    h    |  . . . . . . . . . .|67 Repas
-                |    h    |    h    |  . . . . . . . . . .|78 Repas
-                |    h    |    h    |  . . . . . . . . . .|89
-                |    h    |    h    |  . . . . . . . . . .|910
-                |    h    |    h    |  . . . . . . . . . .|1011
-                |    h    |    h    |  . . . . . . . . . .|1112
-                |    h    |    h    |  . . . . . . . . . .|1213 Repas
-                |    h    |    h    |  . . . . . . . . . .|1314 Repas
-                |    h    |    h    |  . . . . . . . . . .|1415
-                |    h    |    h    |  . . . . . . . . . .|1516
-                |    h    |    h    |  . . . . . . . . . .|1617
-                |    h    |    h    |  . . . . . . . . . .|1718
-                |    h    |    h    |  . . . . . . . . . .|1819 Repas
-                |    h    |    h    |  . . . . . . . . . .|1920 Repas
-                |    h    |    h    |  . . . . . . . . . .|2021 Repas
-                |    h    |    h    |  . . . . . . . . . .|21
-                |    h    |    h    |  . . . . . . . . . .|
                 +-----------------------------------------+
                 """;
+                //n'afficher que ce qui existe
+
                 //.replaceAll("\\.","%s");
 
 
@@ -126,7 +122,7 @@ public class Main {
         //(https://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html)
         //Ouvrez un flux d'écriture vers le fichier texte en utilisant la classe FileOutputStream et enveloppez ce flux dans un ObjectOutputStream.
         // Cela vous permet d'écrire des objets Serializable dans le fichier:
-        FileOutputStream flux = new FileOutputStream("inscription.txt");
+        FileOutputStream flux = new FileOutputStream("Model/inscription.txt");
         ObjectOutputStream oos = new ObjectOutputStream(flux);
 
         //Écrivez la liste d'objets 'Person' dans le fichier en utilisant la méthode writeObject de l'ObjectOutputStream:
@@ -144,6 +140,9 @@ public class Main {
 
 
 
+
+
+        //https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm
 
 
 
