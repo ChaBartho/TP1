@@ -1,9 +1,10 @@
-package Model;
+package All.Model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Jour {
 
@@ -11,22 +12,22 @@ public class Jour {
     LocalDate jour;
     LocalTime heureDebut;
     LocalTime heureFin;
-    HashMap<String, Session> maSession;
+    Map<Integer, Session> maSession;    //-> un jour contient des sessions
 
 
     //Constructeur:
     public Jour(String inputJour){
-        this.jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.maSession = new HashMap<String, Session>();
+        jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        maSession = new HashMap<Integer, Session>();
     }
 
 
-    //Methodes:     -> un jour contient des sessions
-    public void addSession(String sessionSaisie, Session nvlSession){
+    //Methodes:
+    public void addSession(int sessionSaisie, Session nvlSession){
         maSession.put(sessionSaisie, nvlSession);
     }
 
-    public void getSession(String maSess){  //remplacer void par le type qui sera renvoyé
+    public void getSession(int maSess){
         if (maSession.containsKey(maSess)) {    //containsKey = Vérifier qu'un élément existe (true/false)
             Session recupSession = maSession.get(maSess);
             System.out.println(recupSession.intitule);

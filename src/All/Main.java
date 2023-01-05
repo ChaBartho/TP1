@@ -1,3 +1,5 @@
+package All;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -20,58 +22,6 @@ public class Main {
 ////        monAgenda.calendrier.get("29/12/2022").addSession("08:00", maSession); // Fait la même chose que la ligne d'avant mais en moins propre
 //        monAgenda.calendrier.get("29/12/2022").getSession("08:00");
 //        monAgenda.calendrier.get("29/12/2022").getSession("10:00");
-
-
-
-
-
-        //Menu :
-        String menu = """
-                1. Ajouter date (avec heure de début et de fin de journée).
-                2. Afficher date choisie.
-                3. Ajouter personne.
-                4. Quitter.
-                """;
-
-        String sousMenuSession = """
-                1. Ajouter session (avec heure de début et de fin de session).
-                2. Afficher session choisie.
-                3. Retour.
-                """;
-
-        String sousMenuPersonne = """
-                1. Inscrire personne.
-                2. Supprimer inscription.
-                3. Modifier inscription.
-                4. Retour.
-                """;
-
-
-        switch (menu) {
-            case "1." :
-                break;
-
-            case "2." :
-                break;
-
-            case "3." :
-                break;
-
-            case "4." :
-                break;
-
-            case "5." :
-                break;
-
-            case "6." :
-                break;
-
-            default :
-                System.out.println("Saisie non-valide");
-                break;
-        }
-
-
 
 
 
@@ -103,25 +53,10 @@ public class Main {
         String club = scan.nextLine();
 
 
-        //Afficher grille vide en dur:                  -> %s remplace un seul caractère, utiliser un tab pour une chaine ?
-        String grilleVide = """
-                +-----------------------------------------+
-                |                  Date                   |
-                +-----------------------------------------+
-                |  début  |   fin   |      Sessions       |
-                +-----------------------------------------+
-                | %s h %s | %s h %s |  . . . . . . . . . .|
-                +-----------------------------------------+
-                """;
-                //n'afficher que ce qui existe
-
-                //.replaceAll("\\.","%s");
-
-
 
         //(https://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html)
         //Ouvrez un flux d'écriture vers le fichier texte en utilisant la classe FileOutputStream et enveloppez ce flux dans un ObjectOutputStream.
-        // Cela vous permet d'écrire des objets Serializable dans le fichier:
+        // Cela vous permet d'écrire des objets All.Serializable dans le fichier:
         FileOutputStream flux = new FileOutputStream("Model/inscription.txt");
         ObjectOutputStream oos = new ObjectOutputStream(flux);
 
@@ -131,18 +66,12 @@ public class Main {
         //Fermez le flux d'écriture en utilisant la méthode close de l'ObjectOutputStream:
         oos.close();
 
-
-
         // utiliser ObjectInputStream pour lire les objets sérialisés
-
 
         //(https://gayerie.dev/docs/java/langage_java/streams.html)
 
 
 
-
-
-        //https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm
 
 
 
