@@ -1,108 +1,152 @@
 package All;
-
+import All.Model.Agenda;
+import All.Model.Inscription;
 import All.Model.Jour;
 import All.Model.Session;
-public interface Vue {      //AFFICHAGE
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+public class Vue {
+
+        //Propriété:
+        Agenda monAgenda;
 
 
-//        String menu = """
-//                1. Ajouter date (avec heure de début et de fin de journée).
-//                2. Afficher date choisie.
-//                3. Ajouter personne.
-//                4. Quitter.
-//                """;
-//        String sousMenuSession = """
-//                1. Ajouter session (avec heure de début et de fin de session).
-//                2. Afficher session choisie.
-//                3. Retour.
-//                """;
-//        String sousMenuPersonne = """
-//                1. Inscrire personne.
-//                2. Supprimer inscription.
-//                3. Modifier inscription.
-//                4. Retour.
-//                """;
+        //Constructeur:
+        public Vue(Agenda myAgenda){
+                this.monAgenda= myAgenda;
+        }
 
 
-//        String menu = """
-//                1 Ajouter date (avec heure de début et de fin de journée).\n2 Sélectionner date.
-//                """;
-//        String sousMenuSession = """
-//                1 Ajouter session (avec heure de début et de fin de session).\n2 Sélectionner session.\n3 Retour.
-//                """;
-//        String sousMenuPersonne = """
-//                1 Inscrire personne.\n2 Supprimer inscription.\n3 Modifier inscription.\n4 Retour.
-//                """;
+        //Méthodes:
+        public String displayMenuPrincipal() {
+                String displayMenu = """
+                        
+                        MENU PRINCIPAL :
+                        
+                        1) Ajouter une date
+                        2) Consulter une date
+                        3) Supprimer une date
+                        0) Quitter
+                        """;
+                System.out.println(displayMenu);
+                Scanner sc = new Scanner(System.in);
+                System.out.print("choix : ");
+                String monChoix = sc.nextLine();
 
+                return monChoix;
+        }
+        public void displayError(String message){
+                System.out.println(message);
+        }
 
-        ScannerInput input = new ScannerInput();
+        public void displayAddDate(String date){
 
-        Controller menu =
-                switch (input.read("1 Ajouter date.\n2 Sélectionner date.\n3 Afficher dates existantes. \n4 Quitter")) {
-                    case "1" -> {
-                        Controller ctrl = input.addJour();
-                        yield ctrl;
-                    }
-                    case "2" -> {
-                        Controller ctrl = input.getJour();
-                        yield ctrl;
-                    }
-//                    case "3" -> {
-//                    }
-//                    default -> null;
-                };
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Veuilez introduire l'heure de début au format hh:mm :  ");
+                LocalTime heureDeb = LocalTime.parse(sc.nextLine());
+                System.out.print("Veuilez introduire l'heure de fin au format hh:mm :  ");
+                LocalTime heureFin = LocalTime.parse(sc.nextLine());
+                Jour nouveauJour = new Jour(date, heureDeb, heureFin);
 
-//        Controller sousMenuSession =
-//                switch (input.read("1 Ajouter session.\n2 Sélectionner session.\n3 Afficher sessions existantes. \n4 Retour.")) {
-//                    case "1" -> {
-//                        Controller ctrl = input.addSession();
-//                        yield ctrl;
-//                    }
-//                    case "2" -> {
-//                        Controller ctrl = input.getSession();
-//                        yield ctrl;
-//                    }
-//                    case "3" -> {
-//                    }
-//                    default -> null;
-//                };
-//
-//        Controller sousMenuPersonne =
-//                switch (input.read("1 Inscrire personne.\\n2 Supprimer inscription.\\n3 Retour.")) {
-//                    case "1" -> {
-//                        Controller ctrl = input.addPersonne();
-//                        yield ctrl;
-//                    }
-//                    case "2" -> {
-//                        Controller ctrl = input.deletePersonne();
-//                        yield ctrl;
-//                    }
-//                    case "3" -> {
-//                    }
-//                    default -> null;
-//                };
+                monAgenda.addJour(date, nouveauJour);
+        }
 
+        public String displayInputDate(){
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Veuilez introduire une date au format jj/mm/yyyy: ");
+                String maDate = sc.nextLine();
+                System.out.println("-------------------------------------------------");
+                return maDate;
+        }
+        public String displayMenuDate(String date){
+                Jour jour = monAgenda.getJour(date);
 
+                String displayMenu = """
+                        Date sélectionnée : %date
+                        Heure de début: %heureDeb
+                        Heure de fin: %heureFin
 
+                        MENU DATE :
+                        1) Ajouter une session
+                        2) Consulter une session
+                        3) Supprimer une session
+                        0) Quitter
+                        """;
+                displayMenu = displayMenu.replace("%date", jour.getDate());
+                displayMenu = displayMenu.replace("%heureDeb", jour.getHeureDebut().format(DateTimeFormatter.ofPattern("HH:mm")));
+                displayMenu = displayMenu.replace("%heureFin", jour.getHeureFin().format(DateTimeFormatter.ofPattern("HH:mm")));
+                System.out.println(displayMenu);
 
+                System.out.print("choix : ");
+                Scanner sc = new Scanner(System.in);
+                String monChoix = sc.nextLine();
+                System.out.println("-------------------------------------------------");
+                return monChoix;
+        }
 
+        public String displayInputSession(){
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Veuillez indiquer l'heure de début votre session saisie au format 00:00 : ");
+                String heureDebut = sc.nextLine();
+                System.out.println("-------------------------------------------------");
+                return heureDebut;
+        }
+        public void displayAjoutSession(String date){
+                Scanner sc = new Scanner(System.in);
+                LocalTime heureDebut;
+                System.out.println("AJOUTER UNE SESSION EN DATE DU "+date);
 
-        //afficher grille remplie au fur et a mesure (liste des jours, sessions/jour, inscriptions/session)
+                System.out.println("Veuillez indiquer l'heure de début votre session saisie au format 00:00 : ");
+                heureDebut = LocalTime.parse(sc.nextLine());
+                System.out.println("Donnez l'intitulé de votre session");
+                String intitule = sc.nextLine();
+                System.out.println("-------------------------------------------------");
+                Session nvlSession = new Session(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")), heureDebut, intitule);
+                monAgenda.addSession(date, heureDebut.format(DateTimeFormatter.ofPattern("HH:mm")), nvlSession);
+        }
 
-
-        //Afficher grille vide en dur:                  -> %s remplace un seul caractère, utiliser un tab pour une chaine ?
-        String grilleVide = """
-                +-----------------------------------------+
-                |                  Date                   |
-                +-----------------------------------------+
-                |  début  |   fin   |      Sessions       |
-                +-----------------------------------------+
-                | %d h 00 | %d h 00 |          %s         |
-                +-----------------------------------------+
+        public String displayMenuSession(Session session){
+                Scanner sc = new Scanner(System.in);
+                String grille = """
+                +----------------------------------------------------------+
+                                          %date
+                +----------------------------------------------------------+
+                            début : %heureDebut   |    %intitule
+                +----------------------------------------------------------+
                 """;
-        //("%s", heureDebutSession)
+                grille = grille.replace("%date", session.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                grille = grille.replace("%heureDebut", session.getHeureDebutSess().format(DateTimeFormatter.ofPattern("HH:mm")));
+                grille = grille.replace("%intitule", session.getIntitule());
 
+                System.out.println(grille);
+                String displayMenuSession = """
+             
+                1) Inscrire une personne.
+                2) Afficher les personnes inscrites.
+                3) Supprimer une inscription.
+                0) Retour   
+                """;
+                System.out.println(displayMenuSession);
+                System.out.print("choix : ");
+                String monChoix = sc.nextLine();
+                return monChoix;
 
+        }
+
+        public void ajoutInscription(Session session ) {
+                System.out.println("INSCRIRE UNE PERSONNE");
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Veuillez saisir le niss de la personne :");
+                String niss = sc.nextLine();
+                System.out.println("Veuillez saisir le nom de la personne :");
+                String nom = sc.nextLine();
+                System.out.println("Veuillez saisir le nom du club :");
+                String club = sc.nextLine();
+                Inscription nvlinscription = new Inscription(Integer.parseInt(niss), nom, club);
+                monAgenda.addInscription(session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), niss, nvlinscription);
+        }
 
 
 }

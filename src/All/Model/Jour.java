@@ -1,53 +1,73 @@
 package All.Model;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.TreeMap;
 public class Jour {
 
     //Propriétés:
-    LocalDate jour;
-    LocalTime heureDebut;
-    LocalTime heureFin;
-    Map<Integer, Session> maSession;    //-> un jour contient des sessions
+    private final LocalDate jour;
+    private LocalTime heureDebut;
+    private LocalTime heureFin;
+    private TreeMap<String, Session> maSession;    //-> un jour contient des sessions
 
 
     //Constructeur:
-    public Jour(String inputJour){
-        jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        maSession = new HashMap<Integer, Session>();
+    public Jour(String inputJour, LocalTime heureDebut, LocalTime heureFin){
+        this.jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.heureDebut= heureDebut;
+        this.heureFin = heureFin;
+        maSession = new TreeMap<String, Session>();
     }
 
 
     //Methodes:
-    public void addSession(int sessionSaisie, Session nvlSession){
-        maSession.put(sessionSaisie, nvlSession);
+    public String getDate(){
+        return this.jour.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+    public LocalTime getHeureDebut(){
+        return this.heureDebut;
+    }
+    public LocalTime getHeureFin(){
+        return this.heureFin;
     }
 
-    public void getSession(int maSess){
-        if (maSession.containsKey(maSess)) {    //containsKey = Vérifier qu'un élément existe (true/false)
-            Session recupSession = maSession.get(maSess);
-            System.out.println(recupSession.intitule);
-            System.out.println(recupSession.heureDebutSession);
-            System.out.println(recupSession.heureFinSession);
-            System.out.println(recupSession.duree);
-        }else{  //remplacer mon else par return null -> controller if(getSession = null) alors afficher msg d'erreur
-            System.out.println("Cette session n'existe pas dans l'agenda");
+
+
+
+    public void addSession(String heureDebut, Session nvlSession){
+        maSession.put(heureDebut, nvlSession);
+    }
+    public Session getSession(String maSess){
+        if (maSession.containsKey(maSess)) {
+            Session recupSession = this.maSession.get(maSess);
+            return recupSession;
+        }else{
+            return null;
         }
     }
-
-    public void deleteSession(int sessionSaisie){
+    public void deleteSession(LocalTime sessionSaisie){
         if(maSession.containsKey(sessionSaisie)) {
             maSession.remove(sessionSaisie);
-            System.out.println("La session a bien été supprimée");
-        }else{
-            System.out.println("Cette session n'existe pas et n'a pas pu être supprimée");
         }
     }
 
+
+
+
+    public void addInscription(String clefSession, String persSaisi, Inscription nvlPers){
+        this.getSession(clefSession).addInscription(persSaisi, nvlPers);
+    }
+    public Inscription getInscription(String clefSession, String mesInscrit){
+        //CORRIGE-MOI CA
+        Inscription recupInscrit = this.getSession(clefSession).getInscription(mesInscrit);
+        return recupInscrit;
+    }
+    public void deleteInscription(String clefSession,String monInscription){
+        if(maSession.containsKey(clefSession)) {
+            this.getSession(clefSession).deleteInscription(monInscription);
+        }
+    }
 
 
 

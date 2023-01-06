@@ -1,50 +1,63 @@
 package All.Model;
-
-import All.Vue;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class Agenda implements Vue {
+import java.time.LocalTime;
+import java.util.TreeMap;
+public class Agenda  {
     //Propriétés:
-    Map<String, Jour> calendrier;     //-> un agenda contient des jours
+    private TreeMap<String, Jour> calendrier;     //-> un agenda contient des jours
+
 
     //Constructeur:
     public Agenda(){
-        calendrier = new HashMap<String, Jour>();
+        this.calendrier = new TreeMap<String, Jour>();
     }
+
 
     //Methodes:
-            //jourSaisi prend seulement la date, nouveauJour prend l'heure de debut et de fin
-    public void addJour(String jourSaisi, Jour nouveauJour) {
-        calendrier.put(jourSaisi, nouveauJour);
+    public void addJour(String jour, Jour nouveauJour) {
+        this.calendrier.put(jour, nouveauJour);
     }
-            //Permet d'ajouter une session à l'agenda en cours, et ça appellera la méthode de Jour
-    public void addSession(String jourSaisi, int sessionSaisie, Session nvlSession){
-        calendrier.get(jourSaisi).addSession(sessionSaisie,  nvlSession);
-    }
-
-    public void getJour(String maDate){
-        if (calendrier.containsKey(maDate)) {   //containsKey = Vérifier qu'un élément existe (true/false)
-            Jour recupDate = calendrier.get(maDate);
-            System.out.println(recupDate.jour);
+    public Jour getJour(String maDate){
+        if (this.calendrier.containsKey(maDate)) {
+           return this.calendrier.get(maDate);
         }else{
-            System.out.println("Cette date n'existe pas dans l'agenda");
+            return null;
+        }
+    }
+    public void deleteJour(String jour){
+        if (this.calendrier.containsKey(jour)) {
+            this.calendrier.remove(jour);
         }
     }
 
-    public void deleteJour(String jourSaisi){
-        if (calendrier.containsKey(jourSaisi)) {
-            calendrier.remove(jourSaisi);
-            System.out.println("La date est bien supprimée");
-        }else{
-            System.out.println("Cette date n'existe pas et n'a pas pu être supprimée");
+
+    public void addSession(String jour, String heureDebut, Session nvlSession){
+        this.calendrier.get(jour).addSession(heureDebut, nvlSession);
+    }
+    public Session getSession(String jour, String maSess){
+        Session recupSession = this.calendrier.get(jour).getSession(maSess);
+        return recupSession;
+    }
+    public void deleteSession(String jour, LocalTime sessionSaisie){
+            this.calendrier.get(jour).deleteSession(sessionSaisie);
+    }
+
+
+
+    public void addInscription(String jour, String clefSession, String persSaisi, Inscription nvlPers){
+        this.getJour(jour).addInscription(clefSession, persSaisi,nvlPers);
+    }
+    public Inscription getInscription(String jour, String clefSession, String mesInscrit){
+        Inscription recupInscrit = this.calendrier.get(jour).getInscription(clefSession, mesInscrit);
+        return recupInscrit;
+    }
+    public void deleteInscription(String jour, String clefSession,String monInscription){
+        if(this.calendrier.containsKey(jour)){
+            this.calendrier.get(jour).deleteInscription(clefSession, monInscription);
         }
     }
+
+
 
 
 
 }
-
-
-

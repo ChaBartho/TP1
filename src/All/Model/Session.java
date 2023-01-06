@@ -1,50 +1,60 @@
 package All.Model;
-
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Map;
-
+import java.util.TreeMap;
 public class Session {
+
     //Propriétés:
-    String intitule;
-    LocalTime heureDebutSession;
-    LocalTime heureFinSession;
-    int duree = 1;
-    Map<String, Inscription> mesInscriptions;   //-> une session contient des inscriptions
+    private  LocalDate date;
+    private  LocalTime heureDebutSess;
+    private  String intitule;
+    private final int duree = 1;
+    private TreeMap<String, Inscription> mesInscriptions;   //-> une session contient des inscriptions
 
 
     //Constructeur:
-    public Session(String heureDebSess, String heureFinSess, String monIntitule){
-        heureDebutSession = LocalTime.parse(heureDebSess);
-        heureFinSession = LocalTime.parse(heureFinSess);
-        intitule = monIntitule;
+    public Session(LocalDate date, LocalTime heureDebSess, String intitule){
+        this.date = date;
+        this.heureDebutSess = heureDebSess;
+        this.intitule = intitule;
+        this.mesInscriptions = new TreeMap<String, Inscription>();
     }
+
 
 
     //Méthodes :
-    public void addInscription(String inscritSaisi, Inscription nvlInscrit){
-        mesInscriptions.put(inscritSaisi, nvlInscrit);
+    public LocalDate getDate(){
+        return this.date;
+    }
+    public LocalTime getHeureDebutSess(){
+        return this.heureDebutSess;
+    }
+    public  String getIntitule(){
+        return this.intitule;
+    }
+    public int getDuree (){
+        return this.duree;
     }
 
-    public void getInscription(String mesInscrit){
-        if(mesInscriptions.containsKey(mesInscrit)){   //containsKey = Vérifier qu'un élément existe (true/false)
-            Inscription recupInscrit = mesInscriptions.get(mesInscrit);
-            System.out.println(recupInscrit.niss);
-            System.out.println(recupInscrit.nomPersonne);
-            System.out.println(recupInscrit.nomClub);
+
+
+
+    public void addInscription(String persSaisi, Inscription nvlPers){
+        this.mesInscriptions.put(persSaisi, nvlPers);
+    }
+    public Inscription getInscription(String mesInscrit){
+        if(this.mesInscriptions.containsKey(mesInscrit)){
+            Inscription recupInscrit = this.mesInscriptions.get(mesInscrit);
+            return recupInscrit;
         }else{
-            System.out.println("Cette inscription n'existe pas");
+            return null;
         }
     }
-
     public void deleteInscription(String monInscription){
-        if(mesInscriptions.containsKey(monInscription)) {
-            mesInscriptions.remove(monInscription);
-            System.out.println("L'inscription a bien été supprimée");
-        }else{
-            System.out.println("Cette inscription n'existe pas et n'a pas pu être supprimée");
+        if(this.mesInscriptions.containsKey(monInscription)) {
+            this.mesInscriptions.remove(monInscription);
         }
     }
-
 
 
 
