@@ -1,36 +1,40 @@
+package All.Model;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Jour {
+
     //Propriétés:
     LocalDate jour;
     LocalTime heureDebut;
     LocalTime heureFin;
-    HashMap<String, Session> maSession;
+    Map<Integer, Session> maSession;    //-> un jour contient des sessions
 
 
     //Constructeur:
     public Jour(String inputJour){
         jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        maSession = new HashMap<String, Session>();
+        maSession = new HashMap<Integer, Session>();
     }
 
 
-    //Methodes:     -> un jour contient des sessions
-    public void addSession(String sessionSaisie, Session nvlSession){
+    //Methodes:
+    public void addSession(int sessionSaisie, Session nvlSession){
         maSession.put(sessionSaisie, nvlSession);
-
     }
 
-    public void getSession(String maSess){
-        if (maSession.containsKey(maSess)) {
+    public void getSession(int maSess){
+        if (maSession.containsKey(maSess)) {    //containsKey = Vérifier qu'un élément existe (true/false)
             Session recupSession = maSession.get(maSess);
+            System.out.println(recupSession.intitule);
             System.out.println(recupSession.heureDebutSession);
             System.out.println(recupSession.heureFinSession);
             System.out.println(recupSession.duree);
-        }else{
+        }else{  //remplacer mon else par return null -> controller if(getSession = null) alors afficher msg d'erreur
             System.out.println("Cette session n'existe pas dans l'agenda");
         }
     }
