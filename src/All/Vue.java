@@ -43,6 +43,8 @@ public interface Vue {      //AFFICHAGE
                         Controller ctrl = input.addJour();
                         yield ctrl;
                     }
+
+
                     case "2" -> {
                         Controller ctrl = input.getJour();
                         yield ctrl;
