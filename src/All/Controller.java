@@ -40,16 +40,12 @@ public class Controller {
 
                             switch(choixMenu){
                                 case "1":   //Ajouter session
-                                    String maSession = view.displayInputSession();
-                                    Session session = model.getSession(jour.getDate(), maSession);
-                                    if(session == null){
-                                        view.displayAjoutSession(jour.getDate());
-                                    }else{
-                                        view.displayError("Cette session existe déjà!");
-                                    }
+
+                                    view.displayAjoutSession(jour.getDate());
+//
                                     break;
                                 case "2":   //Consulter session
-                                    session = model.getSession(jour.getDate(), view.displayInputSession());
+                                    Session session = model.getSession(jour.getDate(), view.displayInputSession());
                                     if(session == null){
                                         view.displayError("Cette session n'existe pas");
                                     }else{
@@ -103,8 +99,6 @@ public class Controller {
                             }
                         }
                     }
-
-
                     break;
                 case "3":   //Supprimer date
                     jour = model.getJour(view.displayInputDate());

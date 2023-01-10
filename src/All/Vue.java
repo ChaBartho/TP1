@@ -41,9 +41,9 @@ public class Vue {
         public void displayAddDate(String date){
 
                 Scanner sc = new Scanner(System.in);
-                System.out.print("Veuilez introduire l'heure de début au format hh:mm :  ");
+                System.out.print("Veuillez introduire l'heure de début de votre journée au format hh:mm :  ");
                 LocalTime heureDeb = LocalTime.parse(sc.nextLine());
-                System.out.print("Veuilez introduire l'heure de fin au format hh:mm :  ");
+                System.out.print("Veuillez introduire l'heure de fin de votre journée au format hh:mm :  ");
                 LocalTime heureFin = LocalTime.parse(sc.nextLine());
                 Jour nouveauJour = new Jour(date, heureDeb, heureFin);
 
@@ -52,9 +52,8 @@ public class Vue {
 
         public String displayInputDate(){
                 Scanner sc = new Scanner(System.in);
-                System.out.print("Veuilez introduire une date au format jj/mm/yyyy: ");
+                System.out.print("Veuillez introduire une date au format jj/mm/yyyy: ");
                 String maDate = sc.nextLine();
-                System.out.println("-------------------------------------------------");
                 return maDate;
         }
         public String displayMenuDate(String date){
@@ -87,7 +86,6 @@ public class Vue {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Veuillez indiquer l'heure de début votre session saisie au format 00:00 : ");
                 String heureDebut = sc.nextLine();
-                System.out.println("-------------------------------------------------");
                 return heureDebut;
         }
         public void displayAjoutSession(String date){
@@ -108,9 +106,9 @@ public class Vue {
                 Scanner sc = new Scanner(System.in);
                 String grille = """
                 +----------------------------------------------------------+
-                                          %date
+                                       %date
                 +----------------------------------------------------------+
-                            début : %heureDebut   |    %intitule
+                          début : %heureDebut     |      %intitule
                 +----------------------------------------------------------+
                 """;
                 grille = grille.replace("%date", session.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -149,7 +147,6 @@ public class Vue {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Veuillez indiquer votre numéro niss : ");
                 String niss = sc.nextLine();
-                System.out.println("-------------------------------------------------");
                 return niss;
         }
 
