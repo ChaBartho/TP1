@@ -8,10 +8,10 @@
   - Attention particulière sur le MVC pour bien comprendre le fonctionnement
   
   Model:
-    class Agenda: CRUD de Jour, Session et Inscription
-    class Jour: getter des infos de jour + CRUD de Session et Inscription
-    classe Session: getter des infos de la session + CRUD de Inscription
-    class Inscription: setter et getter des infos de la personne qui s'inscrit
+   - class Agenda: CRUD de Jour, Session et Inscription
+   - class Jour: getter des infos de jour + CRUD de Session et Inscription
+   - classe Session: getter des infos de la session + CRUD de Inscription
+   - class Inscription: setter et getter des infos de la personne qui s'inscrit
   
   Controller:
     - Détails des choix possibles du menu avec messages d'erreur
@@ -26,7 +26,7 @@
   
   
 2.Question :
-  -Division si éclatée nécessaire ?
-  -Dois-je faire des controller pour toutes mes  classes ?
+  - Division si éclatée nécessaire ?
+  - Dois-je faire des controller pour toutes mes  classes ?
   
   
