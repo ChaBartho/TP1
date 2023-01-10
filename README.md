@@ -14,11 +14,10 @@
    - class Inscription: setter et getter des infos de la personne qui s'inscrit
   
   Controller:
-    - Détails des choix possibles du menu avec messages d'erreur
-    - Switch et while imbriqués
+   - Détails des choix possibles du menu avec appel des méthodes de la Vue et du Model
   
   Vue:
-    - Méthodes pour les différents menus, les messages d'erreur, les input et les affichages
+   - Méthodes pour les différents menus, les messages d'erreur, les input et les affichages
   
   
   
@@ -27,6 +26,6 @@
   
 2.Question :
   - Division si éclatée nécessaire ?
-  - Dois-je faire des controller pour toutes mes  classes ?
+  - Dois-je faire des controller pour toutes mes classes ?
   
   
