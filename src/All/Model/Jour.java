@@ -6,7 +6,7 @@ import java.util.TreeMap;
 public class Jour {
 
     //Propriétés:
-    private final LocalDate jour;
+    private LocalDate jour;
     private LocalTime heureDebut;
     private LocalTime heureFin;
     private TreeMap<String, Session> maSession;    //-> un jour contient des sessions
@@ -34,7 +34,6 @@ public class Jour {
 
 
 
-
     public void addSession(String heureDebut, Session nvlSession){
         maSession.put(heureDebut, nvlSession);
     }
@@ -54,18 +53,16 @@ public class Jour {
 
 
 
-
-    public void addInscription(String clefSession, String persSaisi, Inscription nvlPers){
-        this.getSession(clefSession).addInscription(persSaisi, nvlPers);
+    public void addInscription(String clefSessIntitule, String persSaisi, Inscription nvlPers){
+        this.getSession(clefSessIntitule).addInscription(persSaisi, nvlPers);
     }
-    public Inscription getInscription(String clefSession, String mesInscrit){
-        //CORRIGE-MOI CA
-        Inscription recupInscrit = this.getSession(clefSession).getInscription(mesInscrit);
+    public Inscription getInscription(String clefSessIntitule, String mesInscrit){
+        Inscription recupInscrit = this.getSession(clefSessIntitule).getInscription(mesInscrit);
         return recupInscrit;
     }
-    public void deleteInscription(String clefSession,String monInscription){
-        if(maSession.containsKey(clefSession)) {
-            this.getSession(clefSession).deleteInscription(monInscription);
+    public void deleteInscription(String clefSessIntitule,String monInscription){
+        if(maSession.containsKey(clefSessIntitule)) {
+            this.getSession(clefSessIntitule).deleteInscription(monInscription);
         }
     }
 

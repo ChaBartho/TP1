@@ -1,6 +1,6 @@
 package All.Model;
 import java.io.Serializable;
-public class Inscription{
+public class Inscription implements Serializable {
 
     //Propriétés :
     private int niss;

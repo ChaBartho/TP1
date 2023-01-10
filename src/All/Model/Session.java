@@ -21,7 +21,6 @@ public class Session {
     }
 
 
-
     //Méthodes :
     public LocalDate getDate(){
         return this.date;
@@ -35,8 +34,6 @@ public class Session {
     public int getDuree (){
         return this.duree;
     }
-
-
 
 
     public void addInscription(String persSaisi, Inscription nvlPers){

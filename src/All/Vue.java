@@ -8,16 +8,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Vue {
-
         //Propriété:
         Agenda monAgenda;
-
 
         //Constructeur:
         public Vue(Agenda myAgenda){
                 this.monAgenda= myAgenda;
         }
-
 
         //Méthodes:
         public String displayMenuPrincipal() {
@@ -135,7 +132,7 @@ public class Vue {
 
         }
 
-        public void ajoutInscription(Session session ) {
+        public void ajoutInscription(Session session){
                 System.out.println("INSCRIRE UNE PERSONNE");
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Veuillez saisir le niss de la personne :");
@@ -146,6 +143,14 @@ public class Vue {
                 String club = sc.nextLine();
                 Inscription nvlinscription = new Inscription(Integer.parseInt(niss), nom, club);
                 monAgenda.addInscription(session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), niss, nvlinscription);
+        }
+
+        public String displayInputInscription(){
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Veuillez indiquer votre numéro niss : ");
+                String niss = sc.nextLine();
+                System.out.println("-------------------------------------------------");
+                return niss;
         }
 
 

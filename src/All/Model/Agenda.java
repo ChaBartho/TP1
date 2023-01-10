@@ -43,20 +43,18 @@ public class Agenda  {
 
 
 
-    public void addInscription(String jour, String clefSession, String persSaisi, Inscription nvlPers){
-        this.getJour(jour).addInscription(clefSession, persSaisi,nvlPers);
+    public void addInscription(String jour, String clefSessIntitule, String persSaisi, Inscription nvlPers){
+        this.getJour(jour).addInscription(clefSessIntitule, persSaisi,nvlPers);
     }
-    public Inscription getInscription(String jour, String clefSession, String mesInscrit){
-        Inscription recupInscrit = this.calendrier.get(jour).getInscription(clefSession, mesInscrit);
+    public Inscription getInscription(String jour, String clefSessIntitule, String mesInscrit){
+        Inscription recupInscrit = this.calendrier.get(jour).getInscription(clefSessIntitule, mesInscrit);
         return recupInscrit;
     }
-    public void deleteInscription(String jour, String clefSession,String monInscription){
+    public void deleteInscription(String jour, String clefSessIntitule, String monInscription){
         if(this.calendrier.containsKey(jour)){
-            this.calendrier.get(jour).deleteInscription(clefSession, monInscription);
+            this.calendrier.get(jour).deleteInscription(clefSessIntitule, monInscription);
         }
     }
-
-
 
 
 

@@ -1,5 +1,6 @@
 package All;
 import All.Model.Agenda;
+import All.Model.Inscription;
 import All.Model.Jour;
 import All.Model.Session;
 public class Controller {
@@ -19,10 +20,10 @@ public class Controller {
 
             switch(choix){
                 case "1":   //Ajouter date
-                    String date = view.displayInputDate();
-                    Jour jour = model.getJour(date);
+                    String maDate = view.displayInputDate();
+                    Jour jour = model.getJour(maDate);
                     if (jour == null){
-                        view.displayAddDate(date);
+                        view.displayAddDate(maDate);
                     }else{
                         view.displayError("Cette date existe déjà!");
                     }
@@ -39,26 +40,47 @@ public class Controller {
 
                             switch(choixMenu){
                                 case "1":   //Ajouter session
-                                    view.displayAjoutSession(jour.getDate());
+                                    String maSession = view.displayInputSession();
+                                    Session session = model.getSession(jour.getDate(), maSession);
+                                    if(session == null){
+                                        view.displayAjoutSession(jour.getDate());
+                                    }else{
+                                        view.displayError("Cette session existe déjà!");
+                                    }
                                     break;
                                 case "2":   //Consulter session
-                                    Session session = model.getSession(jour.getDate(), view.displayInputSession());
+                                    session = model.getSession(jour.getDate(), view.displayInputSession());
                                     if(session == null){
                                         view.displayError("Cette session n'existe pas");
-                                    }else {
+                                    }else{
                                         boolean exit3 = false;
 
                                         while (exit3 == false) {
                                             String choixMenu2 = view.displayMenuSession(session);
                                             switch (choixMenu2) {
                                                 case "1":   // Ajouter inscription
-                                                    view.ajoutInscription(session);
+                                                    String monInscription = view.displayInputInscription();
+                                                    Inscription inscription = model.getInscription(jour.getDate(), session.getIntitule(), monInscription);
+                                                    if(inscription == null){
+                                                        view.ajoutInscription(session);
+                                                    }else{
+                                                        view.displayError("Cette inscription existe déjà!");
+                                                    }
                                                     break;
                                                 case "2":   //Consulter inscription
-//                                                    //appeler la vue évidemment -> displaydelete -> faire comme Consulter Date
+                                                    inscription = model.getInscription(jour.getDate(), session.getIntitule(), view.displayInputInscription());
+                                                    if(inscription == null){
+                                                        view.displayError("Cette inscription n'existe pas");
+                                                    }
                                                     break;
                                                 case "3":   //Supprimer inscription
-//                                                    //appeler la vue évidemment
+                                                    inscription = model.getInscription(jour.getDate(), session.getIntitule(), view.displayInputInscription());
+                                                    if(inscription == null){
+                                                        view.displayError("Cette inscription n'existe pas et n'a pas pu être supprimée");
+                                                    }else{
+                                                        model.deleteInscription(jour.getDate(), session.getIntitule(), String.valueOf(inscription.getNiss()));
+                                                        view.displayError("Inscription supprimée");
+                                                    }
                                                     break;
                                                 case "0":
                                                     exit3 = true;
@@ -70,11 +92,11 @@ public class Controller {
                                 case "3":   //Supprimer session
                                     session = model.getSession(jour.getDate(), view.displayInputSession());
                                     if(session == null){
-                                        view.displayError("Cette session n'existe pas");
-                                    }else {
+                                        view.displayError("Cette session n'existe pas et n'a pas pu être supprimée");
+                                    }else{
                                         model.deleteSession(jour.getDate(),session.getHeureDebutSess());
+                                        view.displayError("Session supprimée");
                                     }
-
                                     break;
                                 case "0": exit2 = true;
                                     break;
@@ -85,7 +107,13 @@ public class Controller {
 
                     break;
                 case "3":   //Supprimer date
-//
+                    jour = model.getJour(view.displayInputDate());
+                    if(jour == null){
+                        view.displayError("Cette date n'existe pas et n'a pas pu être supprimée");
+                    }else{
+                        model.deleteJour(jour.getDate());
+                        view.displayError("Date supprimée");
+                    }
                     break;
                 case "0": exit = true;
                     break;
