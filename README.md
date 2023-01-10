@@ -27,5 +27,6 @@
 2.Question :
   - Division si éclatée nécessaire ?
   - Dois-je faire des controller pour toutes mes classes ?
+  - Où exactement faire mes vérifications de date ?
   
   
