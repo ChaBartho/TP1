@@ -3,13 +3,13 @@ import java.io.Serializable;
 public class Inscription implements Serializable {
 
     //Propriétés :
-    private int niss;
+    private String niss;
     private String nomPersonne;
     private String nomClub;
 
 
     //Constructeur :
-    public Inscription(int niss, String nomPersonne, String nomClub){
+    public Inscription(String niss, String nomPersonne, String nomClub){
         this.niss = niss;
         this.nomPersonne = nomPersonne;
         this.nomClub = nomClub;
@@ -17,7 +17,7 @@ public class Inscription implements Serializable {
 
 
     //Méthodes :
-    public void setNiss(int niss){
+    public void setNiss(String niss){
         this.niss = niss;
     }
     public void setNomPersonne(String nomPersonne){
@@ -26,7 +26,7 @@ public class Inscription implements Serializable {
     public void setNomClub(String nomClub){
         this.nomClub = nomClub;
     }
-    public int getNiss(){
+    public String getNiss(){
         return niss;
     }
     public String getNomPersonne(){

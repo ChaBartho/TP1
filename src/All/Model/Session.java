@@ -5,25 +5,25 @@ import java.util.TreeMap;
 public class Session {
 
     //Propriétés:
-    private  LocalDate date;
+    private  LocalDate dateSession;
     private  LocalTime heureDebutSess;
     private  String intitule;
     private final int duree = 1;
-    private TreeMap<String, Inscription> mesInscriptions;   //-> une session contient des inscriptions
+    private TreeMap<LocalTime, Inscription> mesInscriptions;   //-> une session contient des inscriptions
 
 
     //Constructeur:
     public Session(LocalDate date, LocalTime heureDebSess, String intitule){
-        this.date = date;
+        this.dateSession = date;
         this.heureDebutSess = heureDebSess;
         this.intitule = intitule;
-        this.mesInscriptions = new TreeMap<String, Inscription>();
+        this.mesInscriptions = new TreeMap<LocalTime, Inscription>();
     }
 
 
     //Méthodes :
-    public LocalDate getDate(){
-        return this.date;
+    public LocalDate getDateSession(){
+        return this.dateSession;
     }
     public LocalTime getHeureDebutSess(){
         return this.heureDebutSess;
@@ -36,8 +36,8 @@ public class Session {
     }
 
 
-    public void addInscription(String persSaisi, Inscription nvlPers){
-        this.mesInscriptions.put(persSaisi, nvlPers);
+    public void addInscription(LocalTime heureDebutSess, Inscription nvlPers){
+        this.mesInscriptions.put(heureDebutSess, nvlPers);
     }
     public Inscription getInscription(String mesInscrit){
         if(this.mesInscriptions.containsKey(mesInscrit)){

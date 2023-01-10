@@ -3,18 +3,22 @@ import All.Model.Agenda;
 import All.Model.Inscription;
 import All.Model.Jour;
 import All.Model.Session;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Controller {
     //Propriétés :
     Agenda model;
     Vue view;
 
     //Constructeur :
-    public Controller(Agenda model, Vue view){
-        this.model= model;
-        this.view=view;
+    public Controller(Agenda model, Vue view) {
+        this.model = model;
+        this.view = view;
+    }
+    public void start(){
         boolean exit = false;
-
-        //Boucle menu principal
         while(exit == false){
             String choix =  view.displayMenuPrincipal();
 
@@ -40,12 +44,18 @@ public class Controller {
 
                             switch(choixMenu){
                                 case "1":   //Ajouter session
-
-                                    view.displayAjoutSession(jour.getDate());
+//pb d'affichage
+//                                    String maSession = view.displayInputSession();
+//                                    Session session = model.getSession(jour.getDate(), maSession);
+//                                    if(session == null){
+                                    view.displayAjoutSession(String.valueOf(jour));
+//                                    }else{
+//                                      view.displayError("Cette session existe déjà!")
+//                                      }
 //
                                     break;
                                 case "2":   //Consulter session
-                                    Session session = model.getSession(jour.getDate(), view.displayInputSession());
+                                    Session session = model.getSession(String.valueOf(jour.getDate()), view.displayInputSession());
                                     if(session == null){
                                         view.displayError("Cette session n'existe pas");
                                     }else{
@@ -56,7 +66,7 @@ public class Controller {
                                             switch (choixMenu2) {
                                                 case "1":   // Ajouter inscription
                                                     String monInscription = view.displayInputInscription();
-                                                    Inscription inscription = model.getInscription(jour.getDate(), session.getIntitule(), monInscription);
+                                                    Inscription inscription = model.getInscription(jour.getDate(), session.getHeureDebutSess(), monInscription);
                                                     if(inscription == null){
                                                         view.ajoutInscription(session);
                                                     }else{
@@ -64,17 +74,17 @@ public class Controller {
                                                     }
                                                     break;
                                                 case "2":   //Consulter inscription
-                                                    inscription = model.getInscription(jour.getDate(), session.getIntitule(), view.displayInputInscription());
+                                                    inscription = model.getInscription(jour.getDate(), session.getHeureDebutSess(), view.displayInputInscription());
                                                     if(inscription == null){
                                                         view.displayError("Cette inscription n'existe pas");
                                                     }
                                                     break;
                                                 case "3":   //Supprimer inscription
-                                                    inscription = model.getInscription(jour.getDate(), session.getIntitule(), view.displayInputInscription());
+                                                    inscription = model.getInscription(jour.getDate(), session.getHeureDebutSess(), view.displayInputInscription());
                                                     if(inscription == null){
                                                         view.displayError("Cette inscription n'existe pas et n'a pas pu être supprimée");
                                                     }else{
-                                                        model.deleteInscription(jour.getDate(), session.getIntitule(), String.valueOf(inscription.getNiss()));
+                                                        model.deleteInscription(jour.getDate(), session.getHeureDebutSess(), inscription.getNiss());
                                                         view.displayError("Inscription supprimée");
                                                     }
                                                     break;
@@ -86,11 +96,11 @@ public class Controller {
                                     }
                                     break;
                                 case "3":   //Supprimer session
-                                    session = model.getSession(jour.getDate(), view.displayInputSession());
+                                    session = model.getSession(String.valueOf(jour.getDate()), view.displayInputSession());
                                     if(session == null){
                                         view.displayError("Cette session n'existe pas et n'a pas pu être supprimée");
                                     }else{
-                                        model.deleteSession(jour.getDate(),session.getHeureDebutSess());
+                                        model.deleteSession(String.valueOf(jour.getDate()),session.getHeureDebutSess());
                                         view.displayError("Session supprimée");
                                     }
                                     break;
@@ -105,7 +115,7 @@ public class Controller {
                     if(jour == null){
                         view.displayError("Cette date n'existe pas et n'a pas pu être supprimée");
                     }else{
-                        model.deleteJour(jour.getDate());
+                        model.deleteJour(String.valueOf(jour.getDate()));
                         view.displayError("Date supprimée");
                     }
                     break;

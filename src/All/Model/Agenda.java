@@ -1,4 +1,5 @@
 package All.Model;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.TreeMap;
 public class Agenda  {
@@ -12,9 +13,10 @@ public class Agenda  {
     }
 
 
+
     //Methodes:
-    public void addJour(String jour, Jour nouveauJour) {
-        this.calendrier.put(jour, nouveauJour);
+    public void addJour(String date, Jour nvlDate) {
+        this.calendrier.put(date, nvlDate);
     }
     public Jour getJour(String maDate){
         if (this.calendrier.containsKey(maDate)) {
@@ -23,15 +25,15 @@ public class Agenda  {
             return null;
         }
     }
-    public void deleteJour(String jour){
-        if (this.calendrier.containsKey(jour)) {
-            this.calendrier.remove(jour);
+    public void deleteJour(String date){
+        if (this.calendrier.containsKey(date)) {
+            this.calendrier.remove(date);
         }
     }
 
 
-    public void addSession(String jour, String heureDebut, Session nvlSession){
-        this.calendrier.get(jour).addSession(heureDebut, nvlSession);
+    public void addSession(String jour, LocalTime heureDebutSession, Session nvlSession){
+        this.calendrier.get(jour).addSession(heureDebutSession, nvlSession);
     }
     public Session getSession(String jour, String maSess){
         Session recupSession = this.calendrier.get(jour).getSession(maSess);
@@ -43,16 +45,16 @@ public class Agenda  {
 
 
 
-    public void addInscription(String jour, String clefSessIntitule, String persSaisi, Inscription nvlPers){
-        this.getJour(jour).addInscription(clefSessIntitule, persSaisi,nvlPers);
+    public void addInscription(LocalDate jourSession, LocalTime heureDebutSess, Inscription nvlPers){
+        this.getJour(String.valueOf(jourSession)).addInscription(heureDebutSess, nvlPers);
     }
-    public Inscription getInscription(String jour, String clefSessIntitule, String mesInscrit){
-        Inscription recupInscrit = this.calendrier.get(jour).getInscription(clefSessIntitule, mesInscrit);
+    public Inscription getInscription(LocalDate date, LocalTime heureDebSession, String mesInscrit){
+        Inscription recupInscrit = this.calendrier.get(date).getInscription(heureDebSession, mesInscrit);
         return recupInscrit;
     }
-    public void deleteInscription(String jour, String clefSessIntitule, String monInscription){
-        if(this.calendrier.containsKey(jour)){
-            this.calendrier.get(jour).deleteInscription(clefSessIntitule, monInscription);
+    public void deleteInscription(LocalDate date, LocalTime heureDebSession, String monInscription){
+        if(this.calendrier.containsKey(date)){
+            this.calendrier.get(date).deleteInscription(heureDebSession, monInscription);
         }
     }
 

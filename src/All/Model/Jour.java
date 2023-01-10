@@ -6,36 +6,35 @@ import java.util.TreeMap;
 public class Jour {
 
     //Propriétés:
-    private LocalDate jour;
-    private LocalTime heureDebut;
-    private LocalTime heureFin;
+    private LocalDate date;
+    private LocalTime heureDebutJour;
+    private LocalTime heureFinJour;
     private TreeMap<String, Session> maSession;    //-> un jour contient des sessions
 
 
     //Constructeur:
     public Jour(String inputJour, LocalTime heureDebut, LocalTime heureFin){
-        this.jour = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.heureDebut= heureDebut;
-        this.heureFin = heureFin;
+        this.date = LocalDate.parse(inputJour, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.heureDebutJour= heureDebut;
+        this.heureFinJour = heureFin;
         maSession = new TreeMap<String, Session>();
     }
 
 
     //Methodes:
-    public String getDate(){
-        return this.jour.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    public LocalDate getDate(){
+        return this.date;
     }
     public LocalTime getHeureDebut(){
-        return this.heureDebut;
+        return this.heureDebutJour;
     }
     public LocalTime getHeureFin(){
-        return this.heureFin;
+        return this.heureFinJour;
     }
 
 
-
-    public void addSession(String heureDebut, Session nvlSession){
-        maSession.put(heureDebut, nvlSession);
+    public void addSession(LocalTime heureDebutSession, Session nvlSession){
+        maSession.put(String.valueOf(heureDebutSession), nvlSession);
     }
     public Session getSession(String maSess){
         if (maSession.containsKey(maSess)) {
@@ -52,17 +51,16 @@ public class Jour {
     }
 
 
-
-    public void addInscription(String clefSessIntitule, String persSaisi, Inscription nvlPers){
-        this.getSession(clefSessIntitule).addInscription(persSaisi, nvlPers);
+    public void addInscription(LocalTime heureDebutSess, Inscription nvlPers){
+        this.getSession(String.valueOf(date)).addInscription(heureDebutSess, nvlPers);
     }
-    public Inscription getInscription(String clefSessIntitule, String mesInscrit){
-        Inscription recupInscrit = this.getSession(clefSessIntitule).getInscription(mesInscrit);
+    public Inscription getInscription(LocalTime heureDebutSess, String mesInscrit){
+        Inscription recupInscrit = this.getSession(String.valueOf(heureDebutSess)).getInscription(mesInscrit);
         return recupInscrit;
     }
-    public void deleteInscription(String clefSessIntitule,String monInscription){
-        if(maSession.containsKey(clefSessIntitule)) {
-            this.getSession(clefSessIntitule).deleteInscription(monInscription);
+    public void deleteInscription(LocalTime heureDebSession,String monInscription){
+        if(maSession.containsKey(heureDebSession)){
+            this.getSession(String.valueOf(heureDebSession)).deleteInscription(monInscription);
         }
     }
 

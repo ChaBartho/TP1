@@ -56,8 +56,8 @@ public class Vue {
                 String maDate = sc.nextLine();
                 return maDate;
         }
-        public String displayMenuDate(String date){
-                Jour jour = monAgenda.getJour(date);
+        public String displayMenuDate(LocalDate date){
+                Jour jour = monAgenda.getJour(String.valueOf(date));
 
                 String displayMenu = """
                         Date sélectionnée : %date
@@ -70,7 +70,7 @@ public class Vue {
                         3) Supprimer une session
                         0) Quitter
                         """;
-                displayMenu = displayMenu.replace("%date", jour.getDate());
+                displayMenu = displayMenu.replace("%date", String.valueOf(jour.getDate()));
                 displayMenu = displayMenu.replace("%heureDeb", jour.getHeureDebut().format(DateTimeFormatter.ofPattern("HH:mm")));
                 displayMenu = displayMenu.replace("%heureFin", jour.getHeureFin().format(DateTimeFormatter.ofPattern("HH:mm")));
                 System.out.println(displayMenu);
@@ -90,16 +90,15 @@ public class Vue {
         }
         public void displayAjoutSession(String date){
                 Scanner sc = new Scanner(System.in);
-                LocalTime heureDebut;
+                LocalTime heureDebutSession;
                 System.out.println("AJOUTER UNE SESSION EN DATE DU "+date);
-
                 System.out.println("Veuillez indiquer l'heure de début votre session saisie au format 00:00 : ");
-                heureDebut = LocalTime.parse(sc.nextLine());
+                heureDebutSession = LocalTime.parse(sc.nextLine());
                 System.out.println("Donnez l'intitulé de votre session");
                 String intitule = sc.nextLine();
                 System.out.println("-------------------------------------------------");
-                Session nvlSession = new Session(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")), heureDebut, intitule);
-                monAgenda.addSession(date, heureDebut.format(DateTimeFormatter.ofPattern("HH:mm")), nvlSession);
+                Session nvlSession = new Session(LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy")), heureDebutSession, intitule);
+                monAgenda.addSession(date, LocalTime.parse(heureDebutSession.format(DateTimeFormatter.ofPattern("HH:mm"))), nvlSession);
         }
 
         public String displayMenuSession(Session session){
@@ -111,13 +110,13 @@ public class Vue {
                           début : %heureDebut     |      %intitule
                 +----------------------------------------------------------+
                 """;
-                grille = grille.replace("%date", session.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                grille = grille.replace("%date", session.getDateSession().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 grille = grille.replace("%heureDebut", session.getHeureDebutSess().format(DateTimeFormatter.ofPattern("HH:mm")));
                 grille = grille.replace("%intitule", session.getIntitule());
 
                 System.out.println(grille);
                 String displayMenuSession = """
-             
+
                 1) Inscrire une personne.
                 2) Afficher les personnes inscrites.
                 3) Supprimer une inscription.
@@ -132,6 +131,7 @@ public class Vue {
 
         public void ajoutInscription(Session session){
                 System.out.println("INSCRIRE UNE PERSONNE");
+
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Veuillez saisir le niss de la personne :");
                 String niss = sc.nextLine();
@@ -139,8 +139,8 @@ public class Vue {
                 String nom = sc.nextLine();
                 System.out.println("Veuillez saisir le nom du club :");
                 String club = sc.nextLine();
-                Inscription nvlinscription = new Inscription(Integer.parseInt(niss), nom, club);
-                monAgenda.addInscription(session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), session.getDate().format(DateTimeFormatter.ofPattern(("dd/MM/yyyy"))), niss, nvlinscription);
+                Inscription nvlinscription = new Inscription(niss, nom, club);
+                monAgenda.addInscription(session.getDateSession(),session.getHeureDebutSess(), nvlinscription);
         }
 
         public String displayInputInscription(){
@@ -149,6 +149,7 @@ public class Vue {
                 String niss = sc.nextLine();
                 return niss;
         }
+
 
 
 }
